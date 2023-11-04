@@ -25,8 +25,7 @@ export default function ForgotPassword() {
 
   function handleSendEmail(event: FormEvent) {
     event.preventDefault();
-    alert("acessou")
-
+    
     setIsSend(true)
 
     setTimeout(() => {
@@ -36,8 +35,6 @@ export default function ForgotPassword() {
 
   function handleCreateNewPassword(event: FormEvent) {
     event.preventDefault();
-
-    alert("criou")
 
     setMessage('Voce será redirecionado na tela de login dentro de 5 segundos...');
 
@@ -52,7 +49,7 @@ export default function ForgotPassword() {
 
   if (isToken) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <main className="flex items-center justify-center h-screen">
         <Image 
           src={SigninBackground}
           alt="Signin Background"
@@ -81,12 +78,12 @@ export default function ForgotPassword() {
 
               <form onSubmit={handleCreateNewPassword} className="w-full flex flex-col items-center justify-center gap-4">
                 <Input.Container>
-                  <Input.Icon icon={<Asterisk size={18} className="text-zinc-300" />} />
+                  <Input.Icon icon={Asterisk} />
                   <Input.Field type="password" placeholder="Digite sua nova senha..." />
                 </Input.Container>
 
                 <Input.Container>
-                  <Input.Icon icon={<Asterisk size={18} className="text-zinc-300" />} />
+                  <Input.Icon icon={Asterisk} />
                   <Input.Field type="password" placeholder="Confirmar sua nova senha..." />
                 </Input.Container>
 
@@ -96,7 +93,7 @@ export default function ForgotPassword() {
                   className="mt-8"
                   size="small"
                 >
-                  <Button.Icon icon={<Check size={18} />} />
+                  <Button.Icon icon={Check} />
                 </Button.Button>
               </form>
             </>
@@ -108,12 +105,12 @@ export default function ForgotPassword() {
             </p>
           )}
         </div>
-      </div>
+      </main>
     )
   }
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <main className="flex items-center justify-center h-screen">
       <Image 
         src={SigninBackground}
         alt="Signin Background"
@@ -134,7 +131,7 @@ export default function ForgotPassword() {
 
             <form onSubmit={handleSendEmail} className="w-full flex flex-col items-center justify-center gap-4">
               <Input.Container>
-                <Input.Icon icon={<AtSign size={18} className="text-zinc-300" />} />
+                <Input.Icon icon={AtSign} />
                 <Input.Field type="email" placeholder="Informe o seu e-mail..." />
               </Input.Container>
 
@@ -144,7 +141,7 @@ export default function ForgotPassword() {
                 className="mt-8"
                 size="small"
               >
-                <Button.Icon icon={<Send size={18} />} />
+                <Button.Icon icon={Send} />
               </Button.Button>
 
               <Button.Button 
@@ -180,6 +177,6 @@ export default function ForgotPassword() {
           </div>
         )
       }
-    </div>
+    </main>
   )
 }

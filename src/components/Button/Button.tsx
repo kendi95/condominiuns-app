@@ -19,10 +19,10 @@ export function Button({
       {...rest} 
       className={`
         ${className} 
-        ${variant === "primary" ? "bg-green-600" : "bg-zinc-700"} 
+        ${variant === "primary" ? "bg-green-600" : "bg-zinc-800"} 
         ${variant === "secondary" ? "border border-zinc-400" : "border-0"}
         ${variant === "primary" ? "hover:bg-green-700" : "hover:bg-zinc-600"}
-        ${size === "normal" ? "h-16" : "h-14"}
+        ${size === "normal" ? "h-14" : "h-12"}
         w-full 
         p-4 
         rounded-xl 
@@ -38,7 +38,7 @@ export function Button({
       `}
     >
       {label}
-      {children}
+      {children && children}
     </button>
   )
 }

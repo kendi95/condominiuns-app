@@ -1,11 +1,11 @@
-import { ReactNode } from "react"
+import { ElementType } from "react"
 
 interface IconProps {
-  icon: ReactNode
+  icon: ElementType
 }
 
 export function Icon({ icon: Icon }: IconProps) {
   return (
-    <>{Icon}</>
+    <Icon size={18} className="text-zinc-300" />
   )
 }

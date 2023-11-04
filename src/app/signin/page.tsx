@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { AtSign, Asterisk, ArrowRight } from "lucide-react"
 
 import SigninBackground from '../../assets/signin-background.jpg'
@@ -10,14 +11,16 @@ import { Input } from '@components/Input'
 import { Button } from '@components/Button'
 
 export default function Signin() {
+  const { push } = useRouter();
 
   function handleSignin(event: FormEvent) {
     event.preventDefault();
-    alert("acessou")
+    
+    push("/dashboard");
   }
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <main className="flex items-center justify-center h-screen">
       <Image 
         src={SigninBackground}
         alt="Signin Background"
@@ -32,12 +35,12 @@ export default function Signin() {
 
         <form onSubmit={handleSignin} className="w-full flex flex-col items-center justify-center gap-4">
           <Input.Container>
-            <Input.Icon icon={<AtSign size={18} className="text-zinc-300" />} />
+            <Input.Icon icon={AtSign} />
             <Input.Field type="email" />
           </Input.Container>
 
           <Input.Container>
-            <Input.Icon icon={<Asterisk size={18} className="text-zinc-300" />} />
+            <Input.Icon icon={Asterisk} />
             <Input.Field type="password" />
           </Input.Container>
 
@@ -47,7 +50,7 @@ export default function Signin() {
             type="submit"
             className="mt-6"
           >
-            <Button.Icon icon={<ArrowRight size={18} />} />
+            <Button.Icon icon={ArrowRight} />
           </Button.Button>
         </form>
 
@@ -55,6 +58,6 @@ export default function Signin() {
           Esqueci a minha senha
         </Link>
       </div>
-    </div>
+    </main>
   )
 }

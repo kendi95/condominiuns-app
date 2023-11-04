@@ -7,9 +7,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      
+      animation: {
+        'loading': 'spin 1s linear infinite'
+      }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')({ nocompatible: true })
+  ],
 }
 export default config
