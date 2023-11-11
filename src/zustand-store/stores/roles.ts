@@ -1,11 +1,11 @@
 export const rolesStore = {
-  id: null,
-  name: null,
-  description: null,
+  id: Number(""),
+  name: "",
+  description: "",
 
   create: {
-    name: null,
-    description: null
+    name: "",
+    description: ""
   },
 
   list: []

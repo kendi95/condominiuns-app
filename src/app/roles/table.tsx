@@ -15,7 +15,7 @@ const fields = [
 ]
 
 export function RoleTable() {
-  const [idRole, setIdRole] = useState("")
+  const [idRole, setIdRole] = useState<number>(0)
   const { 
     list, 
     showRoleModals, 
@@ -23,14 +23,14 @@ export function RoleTable() {
   } = useRole()
   const { loadingContent } = useApp()
 
-  function handleShowModal(modalForm: string, id: string) {
+  function handleShowModal(modalForm: string, id: number) {
     showRoleModals(modalForm, id)
     setIdRole(id)
   }
 
-  function handleHideModal(modalForm: string, id: string) {
+  function handleHideModal(modalForm: string, id: number) {
     dismissRoleModals(modalForm, id)
-    setIdRole("")
+    setIdRole(0)
   }
 
   return (

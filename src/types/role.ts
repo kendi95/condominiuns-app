@@ -1,11 +1,11 @@
 export type RoleProps = {
-  id: number | null,
-  name: string | null,
-  description: string | null,
+  id: number,
+  name: string | ""
+  description: string | ""
 
   create: {
-    name: string | null
-    description: string | null
+    name: string | ""
+    description: string | ""
   }
 
   list: Array<{
