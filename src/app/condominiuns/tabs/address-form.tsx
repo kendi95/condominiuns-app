@@ -55,15 +55,15 @@ export function AddressForm({
 
       const data = await queryZipCode(zipcode)
 
-      if (data.zip_code === undefined) {
+      if (data.zip_code === "") {
         throw new Error()
       }
 
       onDisabledField(true)
 
       setCreateOrUpdateCondominiumAddress({
-        ...address,
-        ...data
+        ...data,
+        ...address
       })
     } catch (err: any) {
       toggleQuestionModal(true)
@@ -81,7 +81,7 @@ export function AddressForm({
             <Input.Field 
               placeholder="CEP" 
               loading={loading}
-              value={address.zip_code}
+              value={address.zip_code!}
               onChange={event => onChange(event, "zip_code")}
             />
           </Input.Container>
@@ -90,7 +90,7 @@ export function AddressForm({
             <Input.Icon icon={MapPin} />
             <Input.Field 
               placeholder="Endereço do condomínio..." 
-              value={address.address}
+              value={address.address!}
               disabled={disabledField}
               onChange={event => onChange(event, "address")}
             />
@@ -100,7 +100,7 @@ export function AddressForm({
             <Input.Icon icon={Hash} />
             <Input.Field 
               placeholder="Número de endereço do condomínio..." 
-              value={address.street_number}
+              value={address.street_number!}
               maxLength={4}
               onChange={event => onChange(event, "street_number")}
             />
@@ -112,7 +112,7 @@ export function AddressForm({
             <Input.Icon icon={MapPin} />
             <Input.Field 
               placeholder="Complemento do endereço do condomínio..." 
-              value={address.complement}
+              value={address.complement!}
               onChange={event => onChange(event, "complement")}
             />
           </Input.Container>
@@ -120,7 +120,7 @@ export function AddressForm({
             <Input.Icon icon={MapPin} />
             <Input.Field 
               placeholder="Bairro do endereço do condomínio..." 
-              value={address.neighborhood}
+              value={address.neighborhood!}
               disabled={disabledField}
               onChange={event => onChange(event, "neighborhood")}
             />
@@ -132,7 +132,7 @@ export function AddressForm({
             <Input.Icon icon={MapPin} />
             <Input.Field 
               placeholder="Cidade do condomínio..." 
-              value={address.city}
+              value={address.city!}
               disabled={disabledField}
               onChange={event => onChange(event, "city")}
             />
@@ -141,7 +141,7 @@ export function AddressForm({
             <Input.Icon icon={MapPin} />
             <Input.Field 
               placeholder="Estado do condomínio..." 
-              value={address.province}
+              value={address.province!}
               disabled={disabledField}
               onChange={event => onChange(event, "province")}
             />

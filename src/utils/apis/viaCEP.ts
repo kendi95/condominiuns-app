@@ -11,7 +11,7 @@ type ViaCepProps = {
   uf: string
 }
 
-interface ReturnData extends Partial<CreateOrUpdateCondominiumAddress> {}
+interface ReturnData extends Omit<CreateOrUpdateCondominiumAddress, 'id'> {}
 
 export async function queryZipCode(zipcode: string): Promise<ReturnData> {
   const [zipcode1, zipcode2] = zipcode.split("-")
@@ -22,12 +22,13 @@ export async function queryZipCode(zipcode: string): Promise<ReturnData> {
   
   if (data.cep === undefined) {
     return {
-      address: undefined,
-      zip_code: undefined,
-      complement: undefined,
-      city: undefined,
-      neighborhood: undefined,
-      province: undefined
+      address: "",
+      zip_code: "",
+      complement: "",
+      city: "",
+      neighborhood: "",
+      province: "",
+      street_number: ""
     }
   }
 
@@ -37,6 +38,7 @@ export async function queryZipCode(zipcode: string): Promise<ReturnData> {
     complement: data.complemento,
     city: data.localidade,
     neighborhood: data.bairro,
-    province: data.uf
+    province: data.uf,
+    street_number: ""
   }
 }

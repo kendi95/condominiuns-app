@@ -10,14 +10,14 @@ export type CondominiumProps = {
     cellphone: string | null,
   },
   address: {
-    id: string | "" | null,
-    address: string | "" | null,
-    street_number: string | "" | null,
-    zip_code: string | "" | null,
-    complement: string | "" | null,
-    neighborhood: string | "" | null,
-    city: string | "" | null,
-    province: string | "" | null,
+    id: string | "",
+    address: string | "",
+    street_number: string | "",
+    zip_code: string | "",
+    complement: string | "",
+    neighborhood: string | "",
+    city: string | "",
+    province: string | "",
   },
 
   create: {
