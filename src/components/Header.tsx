@@ -116,7 +116,7 @@ export function Header() {
             >
               <LogOut size={18} className="text-zinc-100" />
               <Link 
-                href="#" 
+                href="/signin" 
                 className="text-base text-zinc-100 font-bold"
               >
                 Sair do sistema
