@@ -1,25 +1,24 @@
 import { create } from "zustand";
 import { v4 as uuidV4 } from "uuid"
 
+import { AppProps } from "../types"
 import { 
-  AppProps, 
   CondominiumProps, 
   CreateCondominiumData, 
   CreateOrUpdateCondominiumAddress,
-  RoleProps,
-  CreateRoleData
-} from "../types";
+} from "../types/condominium";
+import { CreateRoleData, RoleProps } from "../types/role"
 
 import { condominiumStore } from "./stores/condominium"
 import { rolesStore } from "./stores/roles"
 
 type AppStore = {
   app: AppProps
+  role: RoleProps
   condominium: CondominiumProps
-  role: RoleProps,
 
   toggleMenu: () => void
-  toggleCondominiumDrawer: (opened: boolean) => void
+  toggleNewRegisterDrawer: (opened: boolean) => void
   navigationPage: (page: number) => void
   toggleQuestionModal: (opened: boolean) => void
 }
@@ -63,7 +62,6 @@ export const useAppStore = create<AppStore>((set, get) => {
           }
         })
       },
-
       dismissCondominiumModals: (modalForm: string, id: string) => {
         const { condominium: { list } } = get()
 
@@ -88,8 +86,6 @@ export const useAppStore = create<AppStore>((set, get) => {
           }
         })
       },
-
-
       setCreateCondominiumData: (data: CreateCondominiumData) => {
         set(state => {
           return {
@@ -104,7 +100,6 @@ export const useAppStore = create<AppStore>((set, get) => {
           }
         })
       },
-
       setCreateOrUpdateCondominiumAddress: (data: CreateOrUpdateCondominiumAddress) => {
         set(state => {
           return {
@@ -119,7 +114,6 @@ export const useAppStore = create<AppStore>((set, get) => {
           }
         })
       },
-  
       clearCreateCondominiumData: () => {
         set(state => {
           return {
@@ -141,7 +135,6 @@ export const useAppStore = create<AppStore>((set, get) => {
           }
         })
       },
-
       createCondominium: async () => {
         const { condominium: { create } } = get()
   
@@ -153,7 +146,6 @@ export const useAppStore = create<AppStore>((set, get) => {
         * 3 = send to API
         */
       },
-
       listCondominiuns: async () => {
         set(state => {
           return {
@@ -197,7 +189,7 @@ export const useAppStore = create<AppStore>((set, get) => {
     role: {
       ...rolesStore,
 
-      showRoleModals: (modalForm: string, id: string) => {
+      showRoleModals: (modalForm: string, id: number) => {
         const { role: { list } } = get()
 
         const newDatas = list.map((data) => {
@@ -221,7 +213,7 @@ export const useAppStore = create<AppStore>((set, get) => {
           }
         })
       },
-      dismissRoleModals: (modalForm: string, id: string) => {
+      dismissRoleModals: (modalForm: string, id: number) => {
         const { role: { list } } = get()
 
         const newDatas = list.map((data) => {
@@ -245,7 +237,6 @@ export const useAppStore = create<AppStore>((set, get) => {
           }
         })
       },
-
       setCreateRoleData: (data: CreateRoleData) => {
         set(state => {
           return {
@@ -299,7 +290,7 @@ export const useAppStore = create<AppStore>((set, get) => {
 
         const list = Array.from(Array(8).keys()).map((_, index) => {
           return {
-            id: uuidV4(),
+            id: index + 1,
             name: `Role ${index + 1}`,
             showEditForm: false,
           }
@@ -332,7 +323,7 @@ export const useAppStore = create<AppStore>((set, get) => {
       })
     },
 
-    toggleCondominiumDrawer: (opened: boolean) => {
+    toggleNewRegisterDrawer: (opened: boolean) => {
       set(state => {
         return {
           app: { 

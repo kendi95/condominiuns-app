@@ -48,7 +48,7 @@ export function ContactForm({ onClose }: ContactFormProps) {
         </Input.Container>
 
         <div className="w-full flex items-center justify-between gap-4 mb-4">
-          <Input.Container>
+          <Input.Container className="w-full">
             <Input.Icon icon={Phone} />
             <Input.Field 
               placeholder="(00) 0000-0000" 
@@ -57,7 +57,7 @@ export function ContactForm({ onClose }: ContactFormProps) {
             />
           </Input.Container>
 
-          <Input.Container>
+          <Input.Container className="w-full">
             <Input.Icon icon={Smartphone} />
             <Input.Field 
               placeholder="(00) 00000-0000" 

@@ -2,6 +2,7 @@ export const condominiumStore = {
   id: null,
   name: null,
   document: null,
+  description: null,
   contact: {
     id: null,
     email: null,

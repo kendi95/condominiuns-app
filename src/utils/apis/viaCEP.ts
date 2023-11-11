@@ -1,6 +1,6 @@
 import axios from "axios"
 
-import { CreateOrUpdateCondominiumAddress } from "@type/index"
+import { CreateOrUpdateCondominiumAddress } from "@type/condominium"
 
 type ViaCepProps = {
   bairro: string
@@ -20,6 +20,17 @@ export async function queryZipCode(zipcode: string): Promise<ReturnData> {
 
   const { data } = await axios.get<ViaCepProps>(`https://viacep.com.br/ws/${zipCode}/json/`)
   
+  if (data.cep === undefined) {
+    return {
+      address: undefined,
+      zip_code: undefined,
+      complement: undefined,
+      city: undefined,
+      neighborhood: undefined,
+      province: undefined
+    }
+  }
+
   return {
     address: data.logradouro,
     zip_code: data.cep,

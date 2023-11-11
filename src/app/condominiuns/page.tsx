@@ -7,25 +7,24 @@ import { CreateResourceButton } from "@components/CreateResourceButton"
 import { Drawer } from "@components/Drawer"
 
 import { useCondominium } from "@hooks/useCondominium"
+import { useApp } from "@hooks/useApp"
 
 import { CondominiumTable } from "./table"
 import { CondominiumForm } from "./form"
-import { useAppStore } from "../../zustand-store"
 
 export default function Condominiuns() {
   const { 
     clearCreateCondominiumData, 
     listCondominiuns 
   } = useCondominium()
-  const { showedMenu, openedDrawer } = useAppStore(state => state.app)
-  const toggleCondominiumDrawer = useAppStore(state => state.toggleCondominiumDrawer)
+  const { showedMenu, openedDrawer, toggleNewRegisterDrawer } = useApp()
 
   function handleOpenDrawer() {
-    toggleCondominiumDrawer(true)
+    toggleNewRegisterDrawer(true)
   }
 
   function handleCloseDrawer() {
-    toggleCondominiumDrawer(false)
+    toggleNewRegisterDrawer(false)
     clearCreateCondominiumData()
   }
 

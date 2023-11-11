@@ -11,7 +11,6 @@ import { CondominiumEditForm } from "./update-form"
 import { CondominiumCreateUserForm } from "./create-user-form"
 import { CondominiumCreateBlockForm } from "./create-block-form"
 import { CondominiumCreateApartmentForm } from "./create-apartment-form"
-import { CondominiumPermissionForm } from "./permission-form"
 
 const fields = [
   { name: "Nome" },
@@ -76,10 +75,6 @@ export function CondominiumTable() {
                     icon={Building2} 
                     onClick={() => handleShowModal("showApartmentForm", data.id)} 
                   />
-                  <Table.IconButton 
-                    icon={ShieldCheck} 
-                    onClick={() => handleShowModal("showPermissionForm", data.id)} 
-                  />
                 </td>
               </tr>
             
@@ -101,11 +96,6 @@ export function CondominiumTable() {
               <CondominiumCreateApartmentForm 
                 isOpen={data.showApartmentForm}
                 onClose={() => handleHideModal("showApartmentForm", idCondominium)}
-              />
-
-              <CondominiumPermissionForm 
-                isOpen={data.showPermissionForm}
-                onClose={() => handleHideModal("showPermissionForm", idCondominium)}
               />
             </>
           ))}

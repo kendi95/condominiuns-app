@@ -24,8 +24,8 @@ export function RoleForm() {
     <>
       <h1 className="text-2xl text-zinc-100 font-bold">Novo Papel</h1>
       
-      <form className="flex flex-col" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-2 mb-[40vh]">
+      <form className="flex flex-col justify-between h-full" onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-2">
           <Input.Container>
             <Input.Icon icon={UserCog} />
             <Input.Field 

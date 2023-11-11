@@ -60,65 +60,68 @@ export function CondominiumForm() {
     <>
       <h1 className="text-2xl text-zinc-100 font-bold">Novo Condomínio</h1>
       
-      <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-2">
-          <Input.Container>
-            <Input.Icon icon={Building2} />
-            <Input.Field 
-              placeholder="Informe o nome do condomínio..." 
-              value={create.name}
-              onChange={event => onChange(event, "name")}
-            />
-          </Input.Container>
+      <form className="flex flex-col h-full justify-between" onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2">
+            <Input.Container>
+              <Input.Icon icon={Building2} />
+              <Input.Field 
+                placeholder="Informe o nome do condomínio..." 
+                value={create.name}
+                onChange={event => onChange(event, "name")}
+              />
+            </Input.Container>
 
-          <Input.Container>
-            <Input.Icon icon={FileText} />
-            <Input.Field 
-              placeholder="00.000.000/0000-00" 
-              value={create.document}
-              onChange={event => onChange(event, "document")}
-            />
-          </Input.Container>
+            <Input.Container>
+              <Input.Icon icon={FileText} />
+              <Input.Field 
+                placeholder="00.000.000/0000-00" 
+                value={create.document}
+                onChange={event => onChange(event, "document")}
+              />
+            </Input.Container>
 
-          <Input.Container>
-            <Input.TextArea 
-              placeholder="Informe a descrição do condomínio..." 
-              value={create.description}
-              onChange={event => onChange(event, "description")}
-            />
-          </Input.Container>
+            <Input.Container>
+              <Input.TextArea 
+                placeholder="Informe a descrição do condomínio..." 
+                value={create.description}
+                onChange={event => onChange(event, "description")}
+              />
+            </Input.Container>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <h3 className="text-xl text-zinc-100 font-bold">Contato</h3>
+
+            <Input.Container>
+              <Input.Icon icon={AtSign} />
+              <Input.Field 
+                placeholder="contato@exemplo.com.br" 
+                value={create.contact.email}
+                onChange={event => onChange(event, "contact.email")}
+              />
+            </Input.Container>
+
+            <Input.Container>
+              <Input.Icon icon={Phone} />
+              <Input.Field 
+                placeholder="(00) 0000-0000" 
+                value={create.contact.phone}
+                onChange={event => onChange(event, "contact.phone")}
+              />
+            </Input.Container>
+
+            <Input.Container>
+              <Input.Icon icon={Smartphone} />
+              <Input.Field 
+                placeholder="(00) 00000-0000" 
+                value={create.contact.cellphone}
+                onChange={event => onChange(event, "contact.cellphone")}
+              />
+            </Input.Container>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <h3 className="text-xl text-zinc-100 font-bold mt-2">Contato</h3>
-
-          <Input.Container>
-            <Input.Icon icon={AtSign} />
-            <Input.Field 
-              placeholder="contato@exemplo.com.br" 
-              value={create.contact.email}
-              onChange={event => onChange(event, "contact.email")}
-            />
-          </Input.Container>
-
-          <Input.Container>
-            <Input.Icon icon={Phone} />
-            <Input.Field 
-              placeholder="(00) 0000-0000" 
-              value={create.contact.phone}
-              onChange={event => onChange(event, "contact.phone")}
-            />
-          </Input.Container>
-
-          <Input.Container>
-            <Input.Icon icon={Smartphone} />
-            <Input.Field 
-              placeholder="(00) 00000-0000" 
-              value={create.contact.cellphone}
-              onChange={event => onChange(event, "contact.cellphone")}
-            />
-          </Input.Container>
-        </div>
 
         <Button.Button label="Cadastrar" size="small" type="submit">
           <Button.Icon icon={Check} />

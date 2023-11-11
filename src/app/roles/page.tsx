@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from "react"
+import { KeyboardEvent, useEffect } from "react"
 
 import ContainerLayout from "@components/ContainerLayout"
 import HeaderLayout from "@components/HeaderLayout"
@@ -7,25 +7,24 @@ import { CreateResourceButton } from "@components/CreateResourceButton"
 import { Drawer } from "@components/Drawer"
 
 import { useRole } from "@hooks/useRole"
+import { useApp } from "@hooks/useApp"
 
 import { RoleTable } from "./table"
 import { RoleForm } from "./form"
-import { useAppStore } from "../../zustand-store"
 
 export default function Roles() {
   const { 
     clearCreateRoleData, 
     listRoles 
   } = useRole()
-  const { showedMenu, openedDrawer } = useAppStore(state => state.app)
-  const toggleCondominiumDrawer = useAppStore(state => state.toggleCondominiumDrawer)
+  const { showedMenu, openedDrawer, toggleNewRegisterDrawer } = useApp()
 
   function handleOpenDrawer() {
-    toggleCondominiumDrawer(true)
+    toggleNewRegisterDrawer(true)
   }
 
   function handleCloseDrawer() {
-    toggleCondominiumDrawer(false)
+    toggleNewRegisterDrawer(false)
     clearCreateRoleData()
   }
 

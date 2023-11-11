@@ -41,7 +41,7 @@ export function CondominiumCreateUserForm({ isOpen, onClose }: CreateUserFormPro
 
         <form className="flex flex-col w-full gap-4" onSubmit={handleSubmit}>
           <div className="w-full flex items-center justify-between gap-4">
-            <Input.Container>
+            <Input.Container className="w-full">
               <Input.Icon icon={User} />
               <Input.Field 
                 placeholder="Informe o nome do usuário do condomínio..." 
@@ -50,7 +50,7 @@ export function CondominiumCreateUserForm({ isOpen, onClose }: CreateUserFormPro
               />
             </Input.Container>
 
-            <Input.Container>
+            <Input.Container className="w-full">
               <Input.Icon icon={AtSign} />
               <Input.Field 
                 placeholder="contato@exemplo.com.br" 
@@ -69,7 +69,7 @@ export function CondominiumCreateUserForm({ isOpen, onClose }: CreateUserFormPro
           </Input.Container>
 
           <div className="w-full flex items-center justify-between gap-4">
-            <Input.Container>
+            <Input.Container className="w-full">
               <Input.Icon icon={Asterisk} />
               <Input.Field 
                 placeholder="Informe senha..." 
@@ -78,7 +78,7 @@ export function CondominiumCreateUserForm({ isOpen, onClose }: CreateUserFormPro
               />
             </Input.Container>
 
-            <Input.Container>
+            <Input.Container className="w-full">
               <Input.Icon icon={Asterisk} />
               <Input.Field 
                 placeholder="Confirme senha..." 

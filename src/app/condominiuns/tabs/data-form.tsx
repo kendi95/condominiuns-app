@@ -19,7 +19,7 @@ export function DataForm({ onClose }: DataFormProps) {
     <Tab.Panel key="data-form">
       <form className="flex flex-col w-full" onSubmit={handleSubmit}>
         <div className="w-full flex items-center justify-between gap-4 mb-4">
-          <Input.Container>
+          <Input.Container className="w-full">
             <Input.Icon icon={Building2} />
             <Input.Field 
               placeholder="Informe o nome do condomínio..." 
@@ -28,7 +28,7 @@ export function DataForm({ onClose }: DataFormProps) {
             />
           </Input.Container>
 
-          <Input.Container>
+          <Input.Container className="w-full">
             <Input.Icon icon={FileText} />
             <Input.Field 
               placeholder="00.000.000/0000-00" 

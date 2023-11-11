@@ -76,7 +76,7 @@ export function AddressForm({
     <Tab.Panel key="address-form">
       <form className="flex flex-col w-full" onSubmit={handleSubmit}>
         <div className="w-full flex items-center justify-between gap-4 mb-4">
-          <Input.Container className="w-[22vw]">
+          <Input.Container className="w-[32vw]">
             <Input.Icon icon={Binary} />
             <Input.Field 
               placeholder="CEP" 
@@ -96,7 +96,7 @@ export function AddressForm({
             />
           </Input.Container>
 
-          <Input.Container className="w-[14vw]">
+          <Input.Container className="w-[20vw]">
             <Input.Icon icon={Hash} />
             <Input.Field 
               placeholder="Número de endereço do condomínio..." 

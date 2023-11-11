@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { KeyboardEvent, ReactNode } from "react";
 import { X } from "lucide-react"
 
 type DrawerProps = {
@@ -8,6 +8,7 @@ type DrawerProps = {
 }
 
 export function Drawer({ isOpen, children, onClose }: DrawerProps) {
+
   return (
     <main
       className={
@@ -23,8 +24,8 @@ export function Drawer({ isOpen, children, onClose }: DrawerProps) {
           (isOpen ? " translate-x-0 " : " translate-x-full ")
         }
       >
-        <article className="relative w-full max-w-lg p-8 flex flex-col space-y-6 h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-zinc-800 scrollbar-thumb-rounded-lg">
-          <button className="w-4 text-base text-zinc-100 font-bold hover:text-zinc-500 transition duration-200 ease-in-out" onClick={onClose}>
+        <article className="relative w-full max-w-lg px-8 py-4 flex flex-col space-y-2 h-full overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-zinc-800 scrollbar-thumb-rounded-lg">
+          <button className="w-4 mb-2 text-base text-zinc-100 font-bold hover:text-zinc-500 transition duration-200 ease-in-out" onClick={onClose}>
             <X size={18} />
           </button>
           {children}
