@@ -8,14 +8,17 @@ import {
   CreateOrUpdateCondominiumAddress,
 } from "../types/condominium";
 import { CreateRoleData, RoleProps } from "../types/role"
+import { CreatePageData, PageProps } from "../types/page"
 
 import { condominiumStore } from "./stores/condominium"
 import { rolesStore } from "./stores/roles"
+import { pagesStore } from "./stores/pages"
 
 type AppStore = {
   app: AppProps
   role: RoleProps
   condominium: CondominiumProps
+  page: PageProps
 
   toggleMenu: () => void
   toggleNewRegisterDrawer: (opened: boolean) => void
@@ -304,6 +307,132 @@ export const useAppStore = create<AppStore>((set, get) => {
             },
             role: {
               ...state.role,
+              list: list
+            }
+          }
+        })
+      },
+    },
+
+    page: {
+      ...pagesStore,
+
+      showPageModals: (modalForm: string, id: number) => {
+        const { page: { list } } = get()
+
+        const newDatas = list.map((data) => {
+          if (id === data.id) {
+            return {
+              ...data,
+              [modalForm]: true
+            }
+          }
+
+          return data
+        })
+
+        set(state => {
+          return {
+            ...state,
+            page: {
+              ...state.page,
+              list: newDatas,
+            }
+          }
+        })
+      },
+      dismissPageModals: (modalForm: string, id: number) => {
+        const { page: { list } } = get()
+
+        const newDatas = list.map((data) => {
+          if (id === data.id) {
+            return {
+              ...data,
+              [modalForm]: false
+            }
+          }
+
+          return data
+        })
+
+        set(state => {
+          return {
+            ...state,
+            page: {
+              ...state.page,
+              list: newDatas,
+            }
+          }
+        })
+      },
+      setCreatePageData: (data: CreatePageData) => {
+        set(state => {
+          return {
+            ...state,
+            page: {
+              ...state.page,
+              create: {
+                ...state.page.create,
+                ...data
+              }
+            }
+          }
+        })
+      },
+      clearCreatePageData: () => {
+        set(state => {
+          return {
+            ...state,
+            page: {
+              ...state.page,
+              create: {
+                name: "",
+                description: "",
+              }
+            }
+          }
+        })
+      },
+      createPage: async () => {
+        const { page: { create } } = get()
+  
+        console.log(create)
+  
+        /*
+        * 1 = get datas from store condominium
+        * 2 = validate datas
+        * 3 = send to API
+        */
+      },
+      listPages: async () => {
+        set(state => {
+          return {
+            app: {
+              ...state.app,
+              loadingContent: true
+            }
+          }
+        })
+
+        await new Promise(resolver => setTimeout(resolver, 5000))
+
+        const list = Array.from(Array(8).keys()).map((_, index) => {
+          return {
+            id: index + 1,
+            name: `Página ${index + 1}`,
+            showEditForm: false,
+            showDeleteForm: false,
+          }
+        })
+
+        set(state => {
+          return {
+            app: {
+              ...state.app,
+              loadingContent: false,
+            },
+            page: {
+              ...state.page,
               list: list
             }
           }

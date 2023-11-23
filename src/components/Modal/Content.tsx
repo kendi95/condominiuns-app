@@ -19,7 +19,7 @@ export function Content({ children, className }: ContentProps) {
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
         >
-          <Dialog.Panel className={`${className} w-full max-w-3xl transform overflow-hidden rounded-xl bg-zinc-800 p-6 shadow-xl transition-all`}>
+          <Dialog.Panel className={`${className} max-w-3xl transform overflow-hidden rounded-xl bg-zinc-800 p-6 shadow-xl transition-all`}>
             {children}
           </Dialog.Panel>
         </Transition.Child>

@@ -34,7 +34,7 @@ export function CondominiumEditForm({
   
   return (
     <Modal.Container isOpen={isOpen} onClose={onClose}>
-      <Modal.Content>
+      <Modal.Content className="w-full">
         <Tab.Group>
           <div className="flex items-center justify-between w-full">
             <Tab.List className="flex w-[60%] pb-1 border-b border-zinc-400 gap-2">

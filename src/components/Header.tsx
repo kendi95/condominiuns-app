@@ -13,7 +13,8 @@ import {
   ShieldCheck,
   MailQuestion,
   MessageSquare,
-  UserCog
+  UserCog,
+  LinkIcon
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -56,6 +57,11 @@ const links = [
     icon: UserCog,
     path: "/roles",
     name: "Papeis"
+  },
+  {
+    icon: LinkIcon,
+    path: "/pages",
+    name: "Páginas"
   },
 ]
 
@@ -125,7 +131,7 @@ export function Header() {
           </Menu.Items>
         </Menu>
       </header>
-      <nav className={`${!showedMenu ? "w-60" : "w-16"} transition duration-200 ease-in-out lg:h-[91.5vh] 2xl:h-[94.1vh] z-50 bg-zinc-700 flex flex-col gap-12 items-center rounded-br-xl`}>
+      <nav className={`${!showedMenu ? "w-60" : "w-16 px-0"} px-1 overflow-y-auto transition duration-200 ease-in-out lg:h-[91.5vh] 2xl:h-[94.1vh] z-50 bg-zinc-700 flex flex-col gap-12 items-center rounded-br-xl scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-zinc-700 scrollbar-thumb-rounded-md`}>
         <div className={`flex flex-col items-center justify-center gap-2 mt-6 ${showedMenu ? "hidden" : ""}`}>
           <Image 
             alt="Image of system"
@@ -142,12 +148,13 @@ export function Header() {
           </h1>
         </div>
 
-        <ul className="w-full">
+        <ul className="flex flex-col w-full gap-1 pb-4">
           {links.map(({ name, path: pathName, icon: Icon }) => (
             <li 
               key={name} 
+              title={name}
               onClick={() => handleNavigate(pathName)}
-              className={`px-6 py-3 flex items-center gap-2 cursor-pointer hover:bg-zinc-600 ${pathName === path && 'bg-zinc-600'}`}
+              className={`px-6 py-3 flex items-center gap-2 rounded-xl cursor-pointer hover:bg-zinc-600 ${pathName === path && 'bg-zinc-600'}`}
             >
               <Icon size={18} className="text-zinc-100" />
               <Link href={pathName} className={`text-base text-zinc-100 font-bold ${showedMenu ? "hidden" : ""}`}>

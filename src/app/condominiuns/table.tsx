@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Edit2, UserPlus, Building2, Blocks, ShieldCheck } from "lucide-react"
+import { Edit2, UserPlus, Building2, Blocks } from "lucide-react"
 
 import { Table } from "@components/Table"
 import { Pagination } from "@components/Pagination"

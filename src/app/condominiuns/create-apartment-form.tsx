@@ -30,7 +30,7 @@ export function CondominiumCreateApartmentForm({ isOpen, onClose }: CreateApartm
 
   return (
     <Modal.Container isOpen={isOpen} onClose={onClose}>
-      <Modal.Content>
+      <Modal.Content className="w-full">
         <div className="w-full flex items-center justify-between mb-4">
           <h1 className="text-2xl text-zinc-100 font-bold">Cadastro de apartamento do condomínio</h1>
 
