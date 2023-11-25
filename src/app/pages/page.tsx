@@ -1,9 +1,9 @@
 'use client'
 import { useEffect } from "react"
 
-import ContainerLayout from "@components/ContainerLayout"
-import HeaderLayout from "@components/HeaderLayout"
-import { CreateResourceButton } from "@components/CreateResourceButton"
+import ContainerLayout from "@layouts/ContainerLayout"
+import HeaderLayout from "@layouts/HeaderLayout"
+import { CreateResourceButton } from "@layouts/CreateResourceButton"
 import { Drawer } from "@components/Drawer"
 
 import { usePage } from "@hooks/usePage"

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { v4 as uuidV4 } from "uuid"
 
-import { AppProps } from "../types"
+import { AppProps, AlertProps } from "../types"
 import { 
   CondominiumProps, 
   CreateCondominiumData, 
@@ -19,11 +19,6 @@ type AppStore = {
   role: RoleProps
   condominium: CondominiumProps
   page: PageProps
-
-  toggleMenu: () => void
-  toggleNewRegisterDrawer: (opened: boolean) => void
-  navigationPage: (page: number) => void
-  toggleQuestionModal: (opened: boolean) => void
 }
 
 export const useAppStore = create<AppStore>((set, get) => {
@@ -35,7 +30,85 @@ export const useAppStore = create<AppStore>((set, get) => {
       currentPage: 1,
       totalPages: 5,
 
-      openedQuestionModal: false
+      openedQuestionModal: false,
+
+      alert: {
+        message: "",
+        show: false,
+        type: "INFO"
+      },
+
+      toggleMenu: () => {
+        set(state => {
+          return {
+            app: { 
+              ...state.app,
+              showedMenu: !state.app.showedMenu, 
+            }
+          }
+        })
+      },
+  
+      toggleNewRegisterDrawer: (opened: boolean) => {
+        set(state => {
+          return {
+            app: { 
+              ...state.app,
+              openedDrawer: opened, 
+            }
+          }
+        })
+      },
+  
+      navigationPage: (page: number) => {
+        set(state => {
+          return {
+            app: { 
+              ...state.app,
+              currentPage: page
+            }
+          }
+        })
+      },
+  
+      toggleQuestionModal: (opened: boolean) => {
+        set(state => {
+          return {
+            app: { 
+              ...state.app,
+              openedQuestionModal: opened
+            }
+          }
+        })
+      },
+
+      showAlert: ({ ...props }: AlertProps) => {
+        set(state => {
+          return {
+            app: {
+              ...state.app,
+              alert: {
+                show: true,
+                ...props
+              }
+            }
+          }
+        })
+
+        setTimeout(() => {
+          set(state => {
+            return {
+              app: {
+                ...state.app,
+                alert: {
+                  ...state.app.alert,
+                  show: false,
+                }
+              }
+            }
+          })
+        }, props.duration);
+      }
     },
     
     condominium: {
@@ -315,6 +388,8 @@ export const useAppStore = create<AppStore>((set, get) => {
       },
       includePermissionRole: async (data: IncludePermissionRoleData) => {
         console.log(data)
+
+        throw new Error("Erro ao incluir permissões neste papel.")
       },
     },
 
@@ -443,51 +518,5 @@ export const useAppStore = create<AppStore>((set, get) => {
         })
       },
     },
-
-
-    toggleMenu: () => {
-      set(state => {
-        return {
-          app: { 
-            ...state.app,
-            showedMenu: !state.app.showedMenu, 
-          }
-        }
-      })
-    },
-
-    toggleNewRegisterDrawer: (opened: boolean) => {
-      set(state => {
-        return {
-          app: { 
-            ...state.app,
-            openedDrawer: opened, 
-          }
-        }
-      })
-    },
-
-    navigationPage: (page: number) => {
-      set(state => {
-        return {
-          app: { 
-            ...state.app,
-            currentPage: page
-          }
-        }
-      })
-    },
-
-    toggleQuestionModal: (opened: boolean) => {
-      set(state => {
-        return {
-          app: { 
-            ...state.app,
-            openedQuestionModal: opened
-          }
-        }
-      })
-    }
-
   }
 })

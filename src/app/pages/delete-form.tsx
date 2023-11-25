@@ -1,7 +1,9 @@
-import { X, Check } from "lucide-react"
+import { X } from "lucide-react"
 
 import { Modal } from "@components/Modal"
 import { Button } from "@components/Button"
+
+import { useApp } from "@hooks/useApp"
 
 type PageDeleteFormProps = {
   isOpen: boolean
@@ -9,7 +11,30 @@ type PageDeleteFormProps = {
 }
 
 export function PageDeleteForm({ isOpen, onClose }: PageDeleteFormProps) {
-  
+  const { showAlert } = useApp()
+
+  async function handleSubmit() {
+    try {
+      onClose()
+      
+      showAlert({
+        duration: 4000,
+        message: "Página excluído com sucesso!",
+        type: "SUCCESS"
+      })
+    } catch (error) {
+      onClose()
+
+      if (error instanceof Error) {
+        showAlert({
+          duration: 4000,
+          message: error.message,
+          type: "ERROR"
+        })
+      }
+    }
+  }
+
   return (
     <Modal.Container isOpen={isOpen} onClose={onClose}>
       <Modal.Content className="w-[40%]">
@@ -40,6 +65,7 @@ export function PageDeleteForm({ isOpen, onClose }: PageDeleteFormProps) {
             variant="error"
             size="small"
             type="button"
+            onClick={handleSubmit}
           >
           </Button.Button>
         </div>

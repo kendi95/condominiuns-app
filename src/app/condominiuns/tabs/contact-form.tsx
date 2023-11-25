@@ -7,14 +7,37 @@ import { Button } from "@components/Button"
 
 import { maskPhone } from "@utils/maskPhone"
 
+import { useApp } from "@hooks/useApp"
+
 type ContactFormProps = {
   onClose: () => void
 }
 
 export function ContactForm({ onClose }: ContactFormProps) {
+  const { showAlert } = useApp()
   
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
+
+    try {
+      onClose()
+      
+      showAlert({
+        duration: 4000,
+        message: "Contato atualizado com sucesso!",
+        type: "SUCCESS"
+      })
+    } catch (error) {
+      onClose()
+
+      if (error instanceof Error) {
+        showAlert({
+          duration: 4000,
+          message: error.message,
+          type: "ERROR"
+        })
+      }
+    }
   }
 
   function onChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>, inputName: string) {

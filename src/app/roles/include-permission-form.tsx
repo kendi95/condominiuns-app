@@ -7,6 +7,7 @@ import { Button } from "@components/Button"
 import { Data } from "@components/Input/MultiSelect"
 
 import { useRole } from "@hooks/useRole"
+import { useApp } from "@hooks/useApp"
 
 type RoleIncludePermissionFormProps = {
   roleName: string
@@ -32,6 +33,7 @@ const datas = [
 export function RoleIncludePermissionForm({ roleName, isOpen, onClose }: RoleIncludePermissionFormProps) {
   const [permissions, setPermissions] = useState<Data[]>([])
   const { includePermissionRole } = useRole()
+  const { showAlert } = useApp()
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -42,8 +44,24 @@ export function RoleIncludePermissionForm({ roleName, isOpen, onClose }: RoleInc
       await includePermissionRole({
         permissions: datas
       })
-    } catch (error) {
+
+      onClose()
       
+      showAlert({
+        duration: 4000,
+        message: "Permissões incluído com sucesso!",
+        type: "SUCCESS"
+      })
+    } catch (error) {
+      onClose()
+
+      if (error instanceof Error) {
+        showAlert({
+          duration: 4000,
+          message: error.message,
+          type: "ERROR"
+        })
+      }
     }
   }
 

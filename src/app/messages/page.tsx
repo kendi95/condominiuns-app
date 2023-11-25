@@ -1,7 +1,7 @@
 'use client'
-import ContainerLayout from "@components/ContainerLayout"
-import HeaderLayout from "@components/HeaderLayout"
-import { GridContainer } from "@components/GridContainer"
+import ContainerLayout from "@layouts/ContainerLayout"
+import HeaderLayout from "@layouts/HeaderLayout"
+import { GridContainer } from "@layouts/GridContainer"
 
 import { useApp } from "@hooks/useApp"
 

@@ -4,6 +4,7 @@ const config: Config = {
   content: [
     './src/components/**/*.tsx',
     './src/app/**/*.tsx',
+    './src/layouts/**/*.tsx'
   ],
   theme: {
     extend: {

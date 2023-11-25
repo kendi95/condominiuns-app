@@ -6,6 +6,8 @@ import { Input } from "@components/Input"
 import { Data } from "@components/Input/Select"
 import { Button } from "@components/Button"
 
+import { useApp } from "@hooks/useApp"
+
 type CreateApartmentFormProps = {
   isOpen: boolean
   onClose: () => void
@@ -23,9 +25,30 @@ const datas = [
 ] as Data[]
 
 export function CondominiumCreateApartmentForm({ isOpen, onClose }: CreateApartmentFormProps) {
-  
-  function handleSubmit(event: FormEvent) {
+  const { showAlert } = useApp()
+
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
+
+    try {
+      onClose()
+      
+      showAlert({
+        duration: 4000,
+        message: "Apartamento do condomínio criado com sucesso!",
+        type: "SUCCESS"
+      })
+    } catch (error) {
+      onClose()
+
+      if (error instanceof Error) {
+        showAlert({
+          duration: 4000,
+          message: error.message,
+          type: "ERROR"
+        })
+      }
+    }
   }
 
   return (

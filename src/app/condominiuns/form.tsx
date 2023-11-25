@@ -12,14 +12,37 @@ import { Input } from "@components/Input"
 import { Button } from "@components/Button"
 
 import { useCondominium } from "@hooks/useCondominium"
+import { useApp } from "@hooks/useApp"
+
 import { maskCNPJ } from "@utils/maskCNPJ"
 import { maskPhone } from "@utils/maskPhone"
 
 export function CondominiumForm() {
   const { create, setCreateCondominiumData } = useCondominium()
+  const { toggleNewRegisterDrawer, showAlert } = useApp()
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
+
+    try {
+      toggleNewRegisterDrawer(false)
+      
+      showAlert({
+        duration: 4000,
+        message: "Condomínio criado com sucesso!",
+        type: "SUCCESS"
+      })
+    } catch (error) {
+      toggleNewRegisterDrawer(false)
+
+      if (error instanceof Error) {
+        showAlert({
+          duration: 4000,
+          message: error.message,
+          type: "ERROR"
+        })
+      }
+    }
   }
 
   function onChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>, inputName: string) {

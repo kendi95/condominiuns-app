@@ -5,15 +5,38 @@ import { Modal } from "@components/Modal"
 import { Input } from "@components/Input"
 import { Button } from "@components/Button"
 
+import { useApp } from "@hooks/useApp"
+
 type PageEditFormProps = {
   isOpen: boolean
   onClose: () => void
 }
 
 export function PageEditForm({ isOpen, onClose }: PageEditFormProps) {
+  const { showAlert } = useApp()
   
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
+
+    try {
+      onClose()
+      
+      showAlert({
+        duration: 4000,
+        message: "Papel atualizado com sucesso!",
+        type: "SUCCESS"
+      })
+    } catch (error) {
+      onClose()
+
+      if (error instanceof Error) {
+        showAlert({
+          duration: 4000,
+          message: error.message,
+          type: "ERROR"
+        })
+      }
+    }
   }
   
   return (

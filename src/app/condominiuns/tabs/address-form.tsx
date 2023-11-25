@@ -23,10 +23,30 @@ export function AddressForm({
 }: AddressFormProps) {
   const [loading, setLoading] = useState(false)
   const { setCreateOrUpdateCondominiumAddress, address } = useCondominium()
-  const { toggleQuestionModal } = useApp()
+  const { toggleQuestionModal, showAlert } = useApp()
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
+
+    try {
+      onClose()
+      
+      showAlert({
+        duration: 4000,
+        message: "Endereço criado/atualizado com sucesso!",
+        type: "SUCCESS"
+      })
+    } catch (error) {
+      onClose()
+
+      if (error instanceof Error) {
+        showAlert({
+          duration: 4000,
+          message: error.message,
+          type: "ERROR"
+        })
+      }
+    }
   }
 
   function onChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>, inputName: string) {

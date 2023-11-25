@@ -5,12 +5,34 @@ import { Input } from "@components/Input"
 import { Button } from "@components/Button"
 
 import { useRole } from "@hooks/useRole"
+import { useApp } from "@hooks/useApp"
 
 export function RoleForm() {
   const { create, setCreateRoleData } = useRole()
+  const { showAlert, toggleNewRegisterDrawer } = useApp()
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
+
+    try {
+      toggleNewRegisterDrawer(false)
+      
+      showAlert({
+        duration: 4000,
+        message: "Papel criado com sucesso!",
+        type: "SUCCESS"
+      })
+    } catch (error) {
+      toggleNewRegisterDrawer(false)
+
+      if (error instanceof Error) {
+        showAlert({
+          duration: 4000,
+          message: error.message,
+          type: "ERROR"
+        })
+      }
+    }
   }
 
   function onChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>, inputName: string) {
