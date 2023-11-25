@@ -13,6 +13,7 @@ export type RoleProps = {
     name: string
 
     showEditForm: boolean
+    showIncludePermissionForm: boolean
   }>
 
   showRoleModals: (modalForm: string, id: number) => void
@@ -22,9 +23,14 @@ export type RoleProps = {
   clearCreateRoleData: () => void
   createRole: () => Promise<void>
   listRoles: () => Promise<void>
+  includePermissionRole: (data: IncludePermissionRoleData) => Promise<void>
 }
 
 export type CreateRoleData = {
   name: string | ""
   description: string | ""
+}
+
+export type IncludePermissionRoleData = {
+  permissions: number[]
 }

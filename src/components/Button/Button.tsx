@@ -22,8 +22,11 @@ export function Button({
         ${variant === "primary" ? "bg-green-600" : "transparent"} 
         ${variant === "secondary" ? "border border-zinc-400" : "border-0"}
         ${variant === "error" ? "bg-red-600" : "transparent"}
-        ${variant === "error" ? "hover:bg-red-800" : "transparent"}
-        ${variant === "primary" ? "hover:bg-green-700" : "hover:bg-zinc-600"}
+        ${
+          variant === "primary" 
+            ? "hover:bg-green-700" 
+            : variant === "error" ? "hover:bg-red-800" : "hover:bg-zinc-600"
+        }
         ${size === "normal" ? "h-14" : "h-12"}
         w-full 
         p-4 

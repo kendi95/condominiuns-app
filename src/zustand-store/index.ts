@@ -7,7 +7,7 @@ import {
   CreateCondominiumData, 
   CreateOrUpdateCondominiumAddress,
 } from "../types/condominium";
-import { CreateRoleData, RoleProps } from "../types/role"
+import { CreateRoleData, IncludePermissionRoleData, RoleProps } from "../types/role"
 import { CreatePageData, PageProps } from "../types/page"
 
 import { condominiumStore } from "./stores/condominium"
@@ -296,6 +296,7 @@ export const useAppStore = create<AppStore>((set, get) => {
             id: index + 1,
             name: `Role ${index + 1}`,
             showEditForm: false,
+            showIncludePermissionForm: false
           }
         })
 
@@ -311,6 +312,9 @@ export const useAppStore = create<AppStore>((set, get) => {
             }
           }
         })
+      },
+      includePermissionRole: async (data: IncludePermissionRoleData) => {
+        console.log(data)
       },
     },
 

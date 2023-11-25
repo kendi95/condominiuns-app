@@ -56,7 +56,7 @@ export function RoleEditForm({ isOpen, onClose }: RoleEditFormProps) {
             </Button.Button>
 
             <Button.Button 
-              label="Cadastrar" 
+              label="Salvar" 
               size="small"
               type="submit"
             >

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Edit2 } from "lucide-react"
+import { Edit2, ShieldPlus } from "lucide-react"
 
 import { Table } from "@components/Table"
 import { Pagination } from "@components/Pagination"
@@ -8,6 +8,7 @@ import { useRole } from "@hooks/useRole"
 import { useApp } from "@hooks/useApp"
 
 import { RoleEditForm } from "./update-form"
+import { RoleIncludePermissionForm } from "./include-permission-form"
 
 const fields = [
   { name: "Nome" },
@@ -56,12 +57,23 @@ export function RoleTable() {
                     icon={Edit2} 
                     onClick={() => handleShowModal("showEditForm", data.id)} 
                   />
+
+                  <Table.IconButton 
+                    icon={ShieldPlus} 
+                    onClick={() => handleShowModal("showIncludePermissionForm", data.id)} 
+                  />
                 </td>
               </tr>
 
               <RoleEditForm 
                 isOpen={data.showEditForm}
                 onClose={() => handleHideModal("showEditForm", idRole)}
+              />
+
+              <RoleIncludePermissionForm 
+                roleName={data.name}
+                isOpen={data.showIncludePermissionForm}
+                onClose={() => handleHideModal("showIncludePermissionForm", idRole)}
               />
             </>
           ))}

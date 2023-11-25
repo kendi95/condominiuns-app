@@ -56,7 +56,7 @@ export function PageEditForm({ isOpen, onClose }: PageEditFormProps) {
             </Button.Button>
 
             <Button.Button 
-              label="Cadastrar" 
+              label="Salvar" 
               size="small"
               type="submit"
             >
