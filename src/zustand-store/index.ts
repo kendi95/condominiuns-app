@@ -7,18 +7,21 @@ import {
   CreateCondominiumData, 
   CreateOrUpdateCondominiumAddress,
 } from "../types/condominium";
-import { CreateRoleData, IncludePermissionRoleData, RoleProps } from "../types/role"
-import { CreatePageData, PageProps } from "../types/page"
+import { CreateRoleData, IncludePermissionRoleData, RoleProps } from "@type/role"
+import { CreatePageData, PageProps } from "@type/page"
+import { PermissionProps } from '@type/permission'
 
 import { condominiumStore } from "./stores/condominium"
 import { rolesStore } from "./stores/roles"
 import { pagesStore } from "./stores/pages"
+import { permissionsStore } from "./stores/permissions"
 
 type AppStore = {
   app: AppProps
   role: RoleProps
   condominium: CondominiumProps
   page: PageProps
+  permission: PermissionProps
 }
 
 export const useAppStore = create<AppStore>((set, get) => {
@@ -518,5 +521,130 @@ export const useAppStore = create<AppStore>((set, get) => {
         })
       },
     },
+
+    permission: {
+      ...permissionsStore,
+
+      showPermissionModals: (modalForm: string, id: number) => {
+        const { permission: { list } } = get()
+
+        const newDatas = list.map((data) => {
+          if (id === data.id) {
+            return {
+              ...data,
+              [modalForm]: true
+            }
+          }
+
+          return data
+        })
+
+        set(state => {
+          return {
+            ...state,
+            permission: {
+              ...state.permission,
+              list: newDatas,
+            }
+          }
+        })
+      },
+      dismissPermissionModals: (modalForm: string, id: number) => {
+        const { permission: { list } } = get()
+
+        const newDatas = list.map((data) => {
+          if (id === data.id) {
+            return {
+              ...data,
+              [modalForm]: false
+            }
+          }
+
+          return data
+        })
+
+        set(state => {
+          return {
+            ...state,
+            permission: {
+              ...state.permission,
+              list: newDatas,
+            }
+          }
+        })
+      },
+      setCreatePermissionData: (data: CreateRoleData) => {
+        set(state => {
+          return {
+            ...state,
+            permission: {
+              ...state.permission,
+              create: {
+                ...state.permission.create,
+                ...data
+              }
+            }
+          }
+        })
+      },
+      clearCreatePermissionData: () => {
+        set(state => {
+          return {
+            ...state,
+            permission: {
+              ...state.permission,
+              create: {
+                name: "",
+                description: "",
+              }
+            }
+          }
+        })
+      },
+      createPermission: async () => {
+        const { permission: { create } } = get()
+  
+        console.log(create)
+  
+        /*
+        * 1 = get datas from store condominium
+        * 2 = validate datas
+        * 3 = send to API
+        */
+      },
+      listPermissions: async () => {
+        set(state => {
+          return {
+            app: {
+              ...state.app,
+              loadingContent: true
+            }
+          }
+        })
+
+        await new Promise(resolver => setTimeout(resolver, 5000))
+
+        const list = Array.from(Array(8).keys()).map((_, index) => {
+          return {
+            id: index + 1,
+            name: `Permission ${index + 1}`,
+            showEditForm: false,
+          }
+        })
+
+        set(state => {
+          return {
+            app: {
+              ...state.app,
+              loadingContent: false,
+            },
+            permission: {
+              ...state.permission,
+              list: list
+            }
+          }
+        })
+      },
+    }
   }
 })

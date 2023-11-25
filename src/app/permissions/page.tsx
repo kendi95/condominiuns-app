@@ -6,17 +6,18 @@ import HeaderLayout from "@layouts/HeaderLayout"
 import { CreateResourceButton } from "@layouts/CreateResourceButton"
 import { Drawer } from "@components/Drawer"
 
-import { useRole } from "@hooks/useRole"
+import { usePermission } from "@hooks/usePermission"
 import { useApp } from "@hooks/useApp"
 
-import { RoleTable } from "./table"
-import { RoleForm } from "./form"
+import { PermissionForm } from "./form"
+import { PermissionTable } from "./table"
 
-export default function Roles() {
+
+export default function Permissions() {
   const { 
-    clearCreateRoleData, 
-    listRoles 
-  } = useRole()
+    clearCreatePermissionData, 
+    listPermissions
+  } = usePermission()
   const { showedMenu, openedDrawer, toggleNewRegisterDrawer } = useApp()
 
   function handleOpenDrawer() {
@@ -25,18 +26,18 @@ export default function Roles() {
 
   function handleCloseDrawer() {
     toggleNewRegisterDrawer(false)
-    clearCreateRoleData()
+    clearCreatePermissionData()
   }
 
   useEffect(() => {
-    listRoles()
-  }, [listRoles])
+    listPermissions()
+  }, [listPermissions])
 
   return (
     <HeaderLayout>
       <ContainerLayout showedMenu={showedMenu}>
         <div className="flex justify-between w-full">
-          <h1 className="text-2xl text-zinc-100 font-bold">Papéis de usuário</h1>
+          <h1 className="text-2xl text-zinc-100 font-bold">Permissões</h1>
 
           <CreateResourceButton 
             title="Novo Cadastro" 
@@ -45,10 +46,10 @@ export default function Roles() {
         </div>
 
         <Drawer isOpen={openedDrawer} onClose={handleCloseDrawer}>
-          <RoleForm />
+          <PermissionForm />
         </Drawer>
 
-        <RoleTable />
+        <PermissionTable />
       </ContainerLayout>
     </HeaderLayout>
   )
