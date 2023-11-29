@@ -85,9 +85,10 @@ export function CondominiumCreateUserForm({ isOpen, onClose }: CreateUserFormPro
 
           <Input.Container>
             <Input.Select 
-              className="w-[53vw]"
+              className="w-[93%] mt-32"
               datas={datas}
               icon={UserCog} 
+              onChangeValue={() => {}}
             />
           </Input.Container>
 

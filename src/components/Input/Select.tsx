@@ -1,4 +1,4 @@
-import { ElementType, Fragment, useState } from "react"
+import { ElementType, Fragment, SetStateAction, useState } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import { ChevronDown, Check } from "lucide-react"
 
@@ -11,19 +11,30 @@ type SelectProps = {
   icon?: ElementType
   datas: Data[]
   className?: string
+  onChangeValue: (value: Data) => void
 }
 
-export function Select({ icon: Icon, datas, className }: SelectProps) {
+export function Select({ icon: Icon, datas, className, onChangeValue }: SelectProps) {
   const [selected, setSelected] = useState<Data>(datas[0])
 
+  function onChange(value: any) { // { value: string, name: string } 
+    setSelected(value)
+    onChangeValue(value)
+  }
+
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox 
+      value={selected} 
+      onChange={onChange} 
+    >
       <Listbox.Button 
         className="flex items-center justify-between w-full gap-4 text-zinc-300"
       >
         <div className="flex items-center justify-center gap-2">
           {Icon && <Icon size={18} />}
-          <span className="text-base text-zinc-100 font-bold">{selected.name}</span>
+          <span className="text-sm text-zinc-100 font-bold">
+            {selected.name}
+          </span>
         </div>
 
         <ChevronDown size={18} />
@@ -35,7 +46,7 @@ export function Select({ icon: Icon, datas, className }: SelectProps) {
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <Listbox.Options className={`${className} absolute flex flex-col mt-32 max-h-40 overflow-auto rounded-lg bg-zinc-700 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm`}>
+        <Listbox.Options className={`${className} absolute flex flex-col max-h-40 overflow-auto rounded-lg bg-zinc-700 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm`}>
           {datas.map((data) => (
             <Listbox.Option 
               key={data.value}

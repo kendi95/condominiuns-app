@@ -1,19 +1,21 @@
 import { create } from "zustand";
 import { v4 as uuidV4 } from "uuid"
 
-import { AppProps, AlertProps } from "../types"
+import { AppProps, AlertProps } from "@type/index"
 import { 
   CondominiumProps, 
   CreateCondominiumData, 
   CreateOrUpdateCondominiumAddress,
-} from "../types/condominium";
+} from "@type/condominium";
 import { CreateRoleData, IncludePermissionRoleData, RoleProps } from "@type/role"
 import { CreatePageData, PageProps } from "@type/page"
 import { PermissionProps } from '@type/permission'
+import { UserProps, CreateUserData } from '@type/user'
 
-import { condominiumStore } from "./stores/condominium"
 import { rolesStore } from "./stores/roles"
 import { pagesStore } from "./stores/pages"
+import { usersStore } from "./stores/users"
+import { condominiumStore } from "./stores/condominium"
 import { permissionsStore } from "./stores/permissions"
 
 type AppStore = {
@@ -22,6 +24,7 @@ type AppStore = {
   condominium: CondominiumProps
   page: PageProps
   permission: PermissionProps
+  user: UserProps
 }
 
 export const useAppStore = create<AppStore>((set, get) => {
@@ -645,6 +648,138 @@ export const useAppStore = create<AppStore>((set, get) => {
           }
         })
       },
+    },
+
+    user: {
+      ...usersStore,
+
+      showUserModals: (modalForm: string, id: string) => {
+        const { user: { list } } = get()
+
+        const newDatas = list.map((data) => {
+          if (id === data.id) {
+            return {
+              ...data,
+              [modalForm]: true
+            }
+          }
+
+          return data
+        })
+
+        set(state => {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              list: newDatas,
+            }
+          }
+        })
+      },
+      dismissUserModals: (modalForm: string, id: string) => {
+        const { user: { list } } = get()
+
+        const newDatas = list.map((data) => {
+          if (id === data.id) {
+            return {
+              ...data,
+              [modalForm]: false
+            }
+          }
+
+          return data
+        })
+
+        set(state => {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              list: newDatas,
+            }
+          }
+        })
+      },
+      setCreateUserData: (data: CreateUserData) => {
+        set(state => {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              create: {
+                ...state.user.create,
+                ...data,
+                id_role: String(data.id_role)
+              }
+            }
+          }
+        })
+      },
+      clearCreateUserData: () => {
+        set(state => {
+          return {
+            ...state,
+            user: {
+              ...state.user,
+              create: {
+                name: "",
+                email: "",
+                password: "",
+                id_role: ""
+              }
+            }
+          }
+        })
+      },
+      createUser: async () => {
+        const { user: { create } } = get()
+  
+        console.log(create)
+  
+        /*
+        * 1 = get datas from store condominium
+        * 2 = validate datas
+        * 3 = send to API
+        */
+      },
+      listUsers: async () => {
+        set(state => {
+          return {
+            app: {
+              ...state.app,
+              loadingContent: true
+            }
+          }
+        })
+
+        await new Promise(resolver => setTimeout(resolver, 5000))
+
+        const list = Array.from(Array(8).keys()).map((_, index) => {
+          return {
+            id: uuidV4(),
+            name: `User ${index + 1}`,
+            email: `example0${index + 1}@mail.com`,
+            roleName: `Role ${index + 1}`,
+
+            showEditForm: false,
+            showDeleteForm: false
+          }
+        })
+
+        set(state => {
+          return {
+            app: {
+              ...state.app,
+              loadingContent: false,
+            },
+            user: {
+              ...state.user,
+              list: list
+            }
+          }
+        })
+      }
     }
   }
 })

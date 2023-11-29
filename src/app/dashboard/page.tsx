@@ -1,7 +1,7 @@
 'use client'
 
-import ContainerLayout from "@components/ContainerLayout"
-import HeaderLayout from "@components/HeaderLayout"
+import ContainerLayout from "@layouts/ContainerLayout"
+import HeaderLayout from "@layouts/HeaderLayout"
 
 import { useAppStore } from "../../zustand-store"
 
