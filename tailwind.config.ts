@@ -4,7 +4,8 @@ const config: Config = {
   content: [
     './src/components/**/*.tsx',
     './src/app/**/*.tsx',
-    './src/layouts/**/*.tsx'
+    './src/layouts/**/*.tsx',
+    "./node_modules/tw-elements/dist/js/**/*.js"
   ],
   theme: {
     extend: {
@@ -16,6 +17,7 @@ const config: Config = {
   plugins: [
     require('tailwind-scrollbar')({ nocompatible: true }),
     require('@tailwindcss/line-clamp'),
+    require('tw-elements/dist/plugin.cjs')
   ],
 }
 export default config

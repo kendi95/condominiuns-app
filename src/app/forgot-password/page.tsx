@@ -1,9 +1,9 @@
 'use client'
 import Image from "next/image";
+import Lottie from "lottie-react"
 import { FormEvent, useState } from "react";
 import { AtSign, Send, Asterisk, Check } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation";
-import Lottie from "lottie-react"
 
 import SigninBackground from '../../assets/signin-background.jpg'
 import SendEmailAnimation from '../../assets/send-email-animation.json'
@@ -76,15 +76,24 @@ export default function ForgotPassword() {
             <>
               <h1 className="text-2xl text-zinc-300 font-bold mb-6">Criar nova senha</h1> 
 
-              <form onSubmit={handleCreateNewPassword} className="w-full flex flex-col items-center justify-center gap-4">
-                <Input.Container>
+              <form 
+                onSubmit={handleCreateNewPassword} 
+                className="w-full flex flex-col items-center justify-center gap-4"
+              >
+                <Input.Container className="w-full">
                   <Input.Icon icon={Asterisk} />
-                  <Input.Field type="password" placeholder="Digite sua nova senha..." />
+                  <Input.Field 
+                    type="password" 
+                    placeholder="Digite sua nova senha..." 
+                  />
                 </Input.Container>
 
-                <Input.Container>
+                <Input.Container className="w-full">
                   <Input.Icon icon={Asterisk} />
-                  <Input.Field type="password" placeholder="Confirmar sua nova senha..." />
+                  <Input.Field 
+                    type="password" 
+                    placeholder="Confirmar sua nova senha..." 
+                  />
                 </Input.Container>
 
                 <Button.Button 
@@ -130,9 +139,12 @@ export default function ForgotPassword() {
             </p> 
 
             <form onSubmit={handleSendEmail} className="w-full flex flex-col items-center justify-center gap-4">
-              <Input.Container>
+              <Input.Container className="w-full">
                 <Input.Icon icon={AtSign} />
-                <Input.Field type="email" placeholder="Informe o seu e-mail..." />
+                <Input.Field 
+                  type="email" 
+                  placeholder="Informe o seu e-mail..." 
+                />
               </Input.Container>
 
               <Button.Button 

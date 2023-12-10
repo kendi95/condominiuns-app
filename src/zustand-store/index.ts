@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { v4 as uuidV4 } from "uuid"
+import { AxiosError } from "axios";
 
 import { AppProps, AlertProps } from "@type/index"
 import { 
@@ -11,15 +12,22 @@ import { CreateRoleData, IncludePermissionRoleData, RoleProps } from "@type/role
 import { CreatePageData, PageProps } from "@type/page"
 import { PermissionProps } from '@type/permission'
 import { UserProps, CreateUserData } from '@type/user'
+import { SessionProps, SigninData } from '@type/session'
 
 import { rolesStore } from "./stores/roles"
 import { pagesStore } from "./stores/pages"
 import { usersStore } from "./stores/users"
 import { condominiumStore } from "./stores/condominium"
 import { permissionsStore } from "./stores/permissions"
+import { sessionsStore } from "./stores/sessions"
+
+import { api } from "@utils/apis"
+
+const SESSIONSTORAGE_KEY = "@condominiuns:session"
 
 type AppStore = {
   app: AppProps
+  session: SessionProps
   role: RoleProps
   condominium: CondominiumProps
   page: PageProps
@@ -114,6 +122,62 @@ export const useAppStore = create<AppStore>((set, get) => {
             }
           })
         }, props.duration);
+      }
+    },
+
+    session: {
+      ...sessionsStore,
+
+      signin: async (data: SigninData) => {
+        try {
+          const response = await api.post("/auth", data)
+  
+          const { session } = get()
+
+          set({
+            session: {
+              ...session,
+              token: response.data.token,
+              user: {
+                ...response.data.user
+              }
+            }
+          })
+
+          sessionStorage.setItem(SESSIONSTORAGE_KEY, response.data.token)
+          api.defaults.headers["Authorization"] = `Bearer ${response.data.token}`
+        } catch (error) {
+          if (error instanceof AxiosError) {
+            throw new Error(error.response?.data.message)
+          }
+        }
+      },
+
+      signout: async () => {
+        const { session } = get()
+
+        sessionStorage.removeItem(SESSIONSTORAGE_KEY)
+        api.defaults.headers["Authorization"] = ""
+
+        set({
+          session: {
+            ...session,
+            token: "",
+            user: {
+              id: "",
+              name: "",
+              email: "",
+              status: false,
+              role: {
+                id: null,
+                name: "",
+                description: "",
+                permissions: []
+              }
+            }
+          }
+        })
+
       }
     },
     

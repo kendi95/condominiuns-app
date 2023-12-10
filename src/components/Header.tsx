@@ -21,6 +21,7 @@ import { usePathname, useRouter } from "next/navigation";
 import ImageBackground from "@assets/signin-background.jpg";
 
 import { useApp } from "@hooks/useApp";
+import { useSession } from "@hooks/useSession";
 
 const links = [
   {
@@ -67,6 +68,7 @@ const links = [
 
 export function Header() {
   const { showedMenu, toggleMenu } = useApp()
+  const { signout, user } = useSession()
   const { push } = useRouter();
   const path = usePathname();
 
@@ -80,6 +82,12 @@ export function Header() {
 
   function handleNavigate(link: string) {
     push(link);
+  }
+
+  async function handleSignout() {
+    await signout()
+
+    push("/signin")
   }
 
   return (
@@ -105,7 +113,7 @@ export function Header() {
               height={40}
               className="rounded-full border-2 border-zinc-700 mr-2"
             />
-            Administrador
+            {user.name}
             <ChevronDown className="text-zinc-100 ml-2" size={18} />
           </Menu.Button>
           <Menu.Items className="z-50 absolute right-6 top-[52px] bg-zinc-600 w-[20vw] rounded-lg flex flex-col overflow-hidden">
@@ -122,8 +130,9 @@ export function Header() {
             >
               <LogOut size={18} className="text-zinc-100" />
               <Link 
-                href="/signin" 
+                href="#" 
                 className="text-base text-zinc-100 font-bold"
+                onClick={handleSignout}
               >
                 Sair do sistema
               </Link>
@@ -131,7 +140,7 @@ export function Header() {
           </Menu.Items>
         </Menu>
       </header>
-      <nav className={`${!showedMenu ? "w-60" : "w-16 px-0"} px-1 overflow-y-auto transition duration-200 ease-in-out lg:h-[91.5vh] 2xl:h-[94.1vh] z-50 bg-zinc-700 flex flex-col gap-12 items-center rounded-br-xl scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-zinc-700 scrollbar-thumb-rounded-md`}>
+      <nav className={`${!showedMenu ? "w-60" : "w-16"} overflow-y-auto transition duration-200 ease-in-out lg:h-[91.5vh] 2xl:h-[94.1vh] z-50 bg-zinc-700 flex flex-col gap-12 items-center rounded-br-xl scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-zinc-700 scrollbar-thumb-rounded-md`}>
         <div className={`flex flex-col items-center justify-center gap-2 mt-6 ${showedMenu ? "hidden" : ""}`}>
           <Image 
             alt="Image of system"
@@ -148,13 +157,13 @@ export function Header() {
           </h1>
         </div>
 
-        <ul className="flex flex-col w-full gap-1 pb-4">
+        <ul className="flex flex-col w-full gap-1 pb-4 px-1">
           {links.map(({ name, path: pathName, icon: Icon }) => (
             <li 
               key={name} 
               title={name}
               onClick={() => handleNavigate(pathName)}
-              className={`px-6 py-3 flex items-center gap-2 rounded-xl cursor-pointer hover:bg-zinc-600 ${pathName === path && 'bg-zinc-600'}`}
+              className={`${!showedMenu ? "px-6 py-3" : "px-5 py-3"} flex items-center gap-2 rounded-xl cursor-pointer hover:bg-zinc-600 ${pathName === path && 'bg-zinc-600'}`}
             >
               <Icon size={18} className="text-zinc-100" />
               <Link href={pathName} className={`text-base text-zinc-100 font-bold ${showedMenu ? "hidden" : ""}`}>
